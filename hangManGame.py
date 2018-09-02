@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/local/bin/ python3
 import os
 
 # say welcome to hangman
@@ -9,7 +9,7 @@ class Player():
     word = ""
     enterALetter = ""
 
-while True:
+while True: 
     # Let host enter their name
     host = Player()
     host.name = input("Enter game host: ")
@@ -23,7 +23,9 @@ while True:
 
 
     # Choose a word
+    
     word = input(host.name + ", " + "Write a word: ")
+    word = word.lower()
 
     #clear screen
     os.system('clear')
@@ -43,20 +45,21 @@ while True:
     #TODO: save guessed letters
     guessed_letters = []
 
+
     errorCount = 0 
     while True:
-        enterALetter = input(guesser.name + ", " + "Enter a letter: ")
-        print("You entered: , " + enterALetter)
-        guessed_letters.append(enterALetter)
+        enterALetter = input("\n" + guesser.name + ", " + "Enter a letter: ")
+        enterALetter = enterALetter.lower()
+        print(enterALetter.lower())
+        guessed_letters.append(enterALetter.lower())
         print("The letters you have guessed: " + ', '.join(guessed_letters))
     
         #Check if the word contains the guess letter
         if word.find(enterALetter) != -1:
-            #TODO: Find the position, replace the underscore with the letter
+            # Find the position, replace the underscore with the letter
             occurrences = word.find(enterALetter)
-            indices = [i for i, a in enumerate(word) if a == enterALetter]
-
-            print(indices)
+            indices = [i for i,  a in enumerate(word) if a == enterALetter]
+            #print(indices)
             
             tmp_progress = list(progress)
             for index in indices:
@@ -64,6 +67,7 @@ while True:
 
             progress = "".join(tmp_progress)
             print("CURRENT STATE: " + progress)
+            print("NUMBER OF ERRORS: " + str(errorCount))
 
             if progress.find("*") == -1:
                 print("You won!")
@@ -77,9 +81,15 @@ while True:
             if errorCount == 9:
                 print("\n""You have reached the total missing times, Game Over!")
                 break
-    quit = input("Press q to quit the game.")
-    if quit == "q":
+    choice = input("Press q to quit the game. Press anything to start again.")
+    
+    if choice == "q":
         break
+    # elif choice == "":
+    #     print("Welcome to Hangman!")
+                
+
+
 
    
 
